@@ -36,7 +36,8 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """This functon retrieves a page of data.
+        """
+        This functon retrieves a page of data.
         """
         assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
