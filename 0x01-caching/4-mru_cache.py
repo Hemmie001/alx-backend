@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This task has a class that inherits from 
+This task has a class that inherits from
 """
 from collections import OrderedDict
 
