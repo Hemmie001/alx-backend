@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Task 0: Basic Flask app"""
+"""This app has babel object instant"""
 
 from flask import Flask, render_template
 from flask_babel import Babel
 
 
 class Config:
-    """Config class"""
+    """Babel Configuration"""
 
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
@@ -22,7 +22,7 @@ babel = Babel(app)
 
 @app.route('/')
 def index():
-    """routes to index(default)"""
+    """routes to indeix(default)"""
     return render_template("1-index.html",)
 
 
