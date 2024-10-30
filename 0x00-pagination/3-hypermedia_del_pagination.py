@@ -38,9 +38,9 @@ class Server:
 
     def indexed_dataset(self) -> Dict[int, List]:
         """ Create an indexed dataset. """
-        if self.__dataset is None:
-            self.dataset()  # Ensure the dataset is loaded
-        return {i: row for i, row in enumerate(self.__dataset)}
+        if self.__indexed_dataset is None:
+            self.__indexed_dataset = {i: row for i, row in enumerate(self.dataset())}
+        return self.__indexed_dataset
     
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
