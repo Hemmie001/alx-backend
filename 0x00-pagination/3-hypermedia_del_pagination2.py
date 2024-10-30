@@ -22,7 +22,6 @@ class Server:
 
     def __init__(self):
         self.__dataset = None
-        self.__indexed_dataset = None  # Initialize indexed dataset
 
     def dataset(self) -> List[List]:
         """
@@ -36,12 +35,6 @@ class Server:
 
         return self.__dataset
 
-    def indexed_dataset(self) -> Dict[int, List]:
-        """ Create an indexed dataset. """
-        if self.__dataset is None:
-            self.dataset()  # Ensure the dataset is loaded
-        return {i: row for i, row in enumerate(self.__dataset)}
-    
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         This functon retrieves a page of data.
