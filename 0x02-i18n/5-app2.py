@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-'''Task 4: Force locale with URL parameter
-'''
+"""Creates a user login system"""
 
 from typing import Dict, Union
 from flask import Flask, render_template, request, g
@@ -8,7 +7,7 @@ from flask_babel import Babel
 
 
 class Config:
-    '''Config class'''
+    """ Class configuration"""
 
     DEBUG = True
     LANGUAGES = ["en", "fr"]
@@ -30,7 +29,8 @@ users = {
 
 
 def get_user() -> Union[Dict, None]:
-    """Retrieves a user based on a user id.
+    """
+    This function retrieves a user based on a user id.
     """
     login_id = request.args.get('login_as')
     if login_id:
@@ -40,7 +40,9 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request() -> None:
-    """Performs some routines before each request's resolution.
+    """
+    This function performs some routines before each
+    request's resolution.
     """
 
     g.user = get_user()
@@ -48,10 +50,9 @@ def before_request() -> None:
 
 @babel.localeselector
 def get_locale() -> str:
-    """Retrieves the locale for a web page.
-
-    Returns:
-        str: best match
+    """
+    This function retrieves the locale for a web page
+    and returnsstr:best match
     """
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
@@ -61,17 +62,10 @@ def get_locale() -> str:
 
 @app.route('/')
 def index() -> str:
-    '''default route
-
-    Returns:
-        html: homepage
-    '''
+    """
+    This default route returns html homepage
+    """
     return render_template("5-index.html")
-
-# uncomment this line and comment the @babel.localeselector
-# you get this error:
-# AttributeError: 'Babel' object has no attribute 'localeselector'
-# babel.init_app(app, locale_selector=get_locale)
 
 
 if __name__ == "__main__":
