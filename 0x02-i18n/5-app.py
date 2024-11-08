@@ -44,6 +44,7 @@ def before_request() -> None:
     This function performs some routines before each
     request's resolution.
     """
+
     g.user = get_user()
 
 
@@ -69,12 +70,3 @@ def index() -> str:
 
 if __name__ == "__main__":
     app.run()
-```
-
-The key changes are:
-
-1. The `users` dictionary is defined as a mocked user table.
-2. The `get_user` function is defined to retrieve a user based on the `login_as` URL parameter.
-3. The `before_request` function is defined and decorated with `@app.before_request` to execute before all other functions. This function calls `get_user` and sets the retrieved user (if any) as a global variable `g.user`.
-
-The rest of the code remains the same, with the `5-index.html` template using the `g.user` variable to display the appropriate message.
