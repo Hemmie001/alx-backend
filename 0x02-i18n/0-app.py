@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def hello_world():
     """Routes to index(default)"""
     return render_template("0-index.html",)
 
