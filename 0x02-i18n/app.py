@@ -88,7 +88,7 @@ def get_index() -> str:
     """The home/index page.
     """
     g.time = format_datetime()
-    return render_template('index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == '__main__':
