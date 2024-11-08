@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
-"""Creates a user login system"""
+"""A simple flask app
+"""
 
-from typing import Dict, Union
+
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 
-class Config:
-    """ Class configuration"""
+class Config(object):
+    """_summary_
 
-    DEBUG = True
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
+    Returns:
+                    _type_: _description_
+    """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+# configure the flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
 babel = Babel(app)
+
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -28,9 +33,8 @@ users = {
 }
 
 
-def get_user() -> Union[Dict, None]:
-    """
-    This function retrieves a user based on a user id.
+def get_user():
+    """returns a user dictionary or None if the ID cannot be found
     """
     login_id = request.args.get('login_as')
     if login_id:
@@ -40,33 +44,35 @@ def get_user() -> Union[Dict, None]:
 
 @app.before_request
 def before_request() -> None:
+    """_summary_
     """
-    This function performs some routines before each
-    request's resolution.
-    """
-
-    g.user = get_user()
+    user = get_user()
+    g.user = user
 
 
 @babel.localeselector
-def get_locale() -> str:
-    """
-    This function retrieves the locale for a web page
-    and returnsstr:best match
+def get_locale():
+    """_summary_
+
+    Returns:
+                    _type_: _description_
     """
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
+        print(locale)
         return locale
+
     return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+# babel.init_app(app, locale_selector=get_locale)
 
 
 @app.route('/')
-def index() -> str:
+def index():
+    """_summary_
     """
-    This default route returns html homepage
-    """
-    return render_template("5-index.html")
+    return render_template('5-index.html')
 
 
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(port="5000", host="0.0.0.0", debug=True)
